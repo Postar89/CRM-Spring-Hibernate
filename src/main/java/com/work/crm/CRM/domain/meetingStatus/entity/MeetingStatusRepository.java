@@ -10,7 +10,7 @@ public interface MeetingStatusRepository {
     List<MeetingStatus> findAll();
     Page<MeetingStatus> findAll(Pageable page);
     Optional<MeetingStatus> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     MeetingStatus save(MeetingStatus entity);
 //    List<MeetingStatus> saveAll(List<MeetingStatus> entities);
 }

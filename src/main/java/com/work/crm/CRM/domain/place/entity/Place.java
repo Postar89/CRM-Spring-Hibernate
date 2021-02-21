@@ -10,20 +10,20 @@ public class Place {
     @GeneratedValue(generator = "idPlaceSequence")
     @SequenceGenerator(schema = "CRM", name = "idPlaceSequence", sequenceName = "CRM_PLACE_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
-    @OneToMany
+
     @Column(name = "ADDRES_ID")
-    private int addressId;
+    private long addressId;
     @NotBlank
     @Column(name = "NAME")
     private String name;
 
-    int getAddressId() {
+    long getAddressId() {
         return addressId;
     }
 
-    void setAddressId(int addressId) {
+    void setAddressId(long addressId) {
         this.addressId = addressId;
     }
 

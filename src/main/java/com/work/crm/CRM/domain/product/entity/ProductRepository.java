@@ -10,7 +10,7 @@ public interface ProductRepository {
     List<Product> findAll();
     Page<Product> findAll(Pageable page);
     Optional<Product> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     Product save(Product entity);
 //    List<Product> saveAll(List<Product> entities);
 }

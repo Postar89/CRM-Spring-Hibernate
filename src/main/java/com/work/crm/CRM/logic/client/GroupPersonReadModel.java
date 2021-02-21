@@ -1,15 +1,16 @@
-package com.work.crm.CRM.logic.client.controler;
+package com.work.crm.CRM.logic.client;
 
 import com.work.crm.CRM.domain.person.entity.Person;
 
-public class ClientReadModel {
+public class GroupPersonReadModel {
+
     private String docNumber;
     private String docType;
-    private int idNumber;
+    private long idNumber;
     private String name;
     private String surname;
 
-    ClientReadModel(Person source)
+    public GroupPersonReadModel(Person source)
     {
         docNumber = source.getDocNumber();
         docType = source.getDocType();
@@ -34,11 +35,11 @@ public class ClientReadModel {
         this.docType = docType;
     }
 
-    public int getIdNumber() {
+    public long getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(int idNumber) {
+    public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
     }
 

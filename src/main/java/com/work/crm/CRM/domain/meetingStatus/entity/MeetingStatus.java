@@ -10,7 +10,7 @@ public class MeetingStatus {
     @GeneratedValue(generator = "idMeetingStatusSequence")
     @SequenceGenerator(schema = "CRM", name = "idMeetingStatusSequence", sequenceName = "CRM_MEETING_STATUS_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
     @Column(name = "STATUS")
     private String status;

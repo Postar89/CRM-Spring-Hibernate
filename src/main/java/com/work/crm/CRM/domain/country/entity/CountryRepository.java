@@ -11,6 +11,6 @@ public interface CountryRepository {
     Page<Country> findAll(Pageable page);
     Optional<Country> findById(Integer i);
     Country save(Country entity);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
 //    List<Country> saveAll(List<Country> entities);
 }

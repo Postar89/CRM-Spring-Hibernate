@@ -10,40 +10,44 @@ public class RLTAddressPerson {
     @GeneratedValue(generator = "idRAPSequence")
     @SequenceGenerator(schema = "CRM", name = "idRAPSequence", sequenceName = "CRM_RAP_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
-    @OneToMany
+
     @Column(name = "ADDRESS_ID")
-    private int addressId;
+    private long addressId;
     @NotBlank
     @Column(name = "IS_MAIN")
     private char isMain;
     @NotBlank
-    @OneToMany
-    @Column(name = "PERSON_ID")
-    private int personId;
 
-    int getAddressId() {
+    @Column(name = "PERSON_ID")
+    private long personId;
+
+    long getId() {
+        return id;
+    }
+
+    public long getAddressId() {
         return addressId;
     }
 
-    void setAddressId(int addressId) {
+    public void setAddressId(long addressId) {
         this.addressId = addressId;
     }
 
-    char isMain() {
+    public char isMain() {
         return isMain;
     }
 
-    void setMain(char main) {
+    public void setMain(char main) {
         isMain = main;
     }
 
-    int getPersonId() {
+    public long getPersonId() {
         return personId;
     }
 
-    void setPersonId(int personId) {
+    public void setPersonId(long personId) {
         this.personId = personId;
     }
 }

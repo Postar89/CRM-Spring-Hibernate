@@ -40,7 +40,7 @@ public class MeetingControler {
     }
 
     @PutMapping(path = "/meetings/{id}")
-    ResponseEntity<?> updateMeeting(@PathVariable int id, @RequestBody Meeting toUpdate)
+    ResponseEntity<?> updateMeeting(@PathVariable long id, @RequestBody Meeting toUpdate)
     {
         if (meetingRepository.existsById(id)) {
             meetingRepository.save(toUpdate);

@@ -10,7 +10,7 @@ public interface PersonRepository {
     List<Person> findAll();
     Page<Person> findAll(Pageable page);
     Optional<Person> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     Person save(Person entity);
 //    List<Person> saveAll(List<Person> entities);
 }

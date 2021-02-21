@@ -40,7 +40,7 @@ public class AddressControler {
     }
 
     @PutMapping(path = "/addresses/{id}")
-    ResponseEntity<?> updateAddress(@PathVariable int id, @RequestBody Address toUpdate)
+    ResponseEntity<?> updateAddress(@PathVariable Long id, @RequestBody Address toUpdate)
     {
         if (addressRepository.existsById(id)) {
             addressRepository.save(toUpdate);

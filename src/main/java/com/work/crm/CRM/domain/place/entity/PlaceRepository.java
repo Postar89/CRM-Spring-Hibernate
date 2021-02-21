@@ -10,7 +10,7 @@ public interface PlaceRepository {
     List<Place> findAll();
     Page<Place> findAll(Pageable page);
     Optional<Place> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     Place save(Place entity);
 //    List<Place> saveAll(List<Place> entities);
 }

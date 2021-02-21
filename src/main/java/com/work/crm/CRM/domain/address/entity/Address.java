@@ -1,5 +1,7 @@
 package com.work.crm.CRM.domain.address.entity;
 
+import com.work.crm.CRM.domain.city.entity.City;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -11,15 +13,13 @@ public class Address {
     @GeneratedValue(generator = "idAddressSequence")
     @SequenceGenerator(schema = "CRM", name = "idAddressSequence", sequenceName = "CRM_ADDRESS_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name="ID")
-    private int id;
+    private long id;
     @NotBlank
-    @OneToMany
-    @Column(name="CITY_ID")
-    private int cityId;
+    @JoinColumn(name="CITY_ID",foreignKey = @ForeignKey(name = "FK_ADDRESS_CITY"))
+    private long cityId;
     @NotBlank
-    @OneToMany
-    @Column(name="COUNTRY_ID")
-    private int countryId;
+    @JoinColumn(name="COUNTRY_ID",foreignKey = @ForeignKey(name = "FK_ADDRESS_COUNTRY"))
+    private long countryId;
     @NotBlank
     @Column(name="HOUSE_NB")
     private String houseNb;
@@ -32,51 +32,53 @@ public class Address {
     @Column(name="FLOAT_NB")
     private String floatNb;
 
-    int getCityId() {
+    public Address(){}
+
+    public long getCityId() {
         return cityId;
     }
 
-    void setCityId(int cityId) {
+    public void setCityId(long cityId) {
         this.cityId = cityId;
     }
 
-    int getCountryId() {
+    public long getCountryId() {
         return countryId;
     }
 
-    void setCountryId(int countryId) {
+    public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
 
-    String getFloatNb() {
+    public String getFloatNb() {
         return floatNb;
     }
 
-    void setFloatNb(String floatNb) {
+    public void setFloatNb(String floatNb) {
         this.floatNb = floatNb;
     }
 
-    String getHouseNb() {
+    public String getHouseNb() {
         return houseNb;
     }
 
-    void setHouseNb(String houseNb) {
+    public void setHouseNb(String houseNb) {
         this.houseNb = houseNb;
     }
 
-    String getPassCode() {
+    public String getPassCode() {
         return passCode;
     }
 
-    void setPassCode(String passCode) {
+    public void setPassCode(String passCode) {
         this.passCode = passCode;
     }
 
-    String getStreet() {
+    public String getStreet() {
         return street;
     }
 
-    void setStreet(String street) {
+    public void setStreet(String street) {
         this.street = street;
     }
 }

@@ -11,7 +11,7 @@ public interface AddressRepository {
     List<Address> findAll();
     Page<Address> findAll(Pageable page);
     Optional<Address> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     Address save(Address entity);
 
 }

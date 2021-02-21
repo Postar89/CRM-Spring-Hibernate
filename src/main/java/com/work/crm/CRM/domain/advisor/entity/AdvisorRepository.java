@@ -9,6 +9,6 @@ public interface AdvisorRepository {
     List<Advisor> findAll();
     Page<Advisor> findAll(Pageable page);
     Optional<Advisor> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     Advisor save(Advisor entity);
 }

@@ -38,7 +38,7 @@ public class ProductControler {
     }
 
     @PutMapping(path = "/Products/{id}")
-    ResponseEntity<?> updateProduct(@PathVariable int id, @RequestBody Product toUpdate)
+    ResponseEntity<?> updateProduct(@PathVariable long id, @RequestBody Product toUpdate)
     {
         if (productRepository.existsById(id)) {
             productRepository.save(toUpdate);

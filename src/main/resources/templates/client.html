@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Klient</title>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
 <main>
-    <form action="#" method="POST" th:action="@{/person}" th:object="${person}">
+    <form action="#" method="POST" th:action="@{/client}">
         <fieldset>
             <legend>Nowy Client</legend>
             <label>Imię
-                <input type="text" th:field="*{name}">
+                <input type="text">
             </label>
             <label>Nazwisko
-                <input type="text" th:field="*{surname}">
+                <input type="text">
             </label>
             <label>Pesel
-                <input type="text" th:field="">
+                <input type="text">
             </label>
             <label>Numer dokumentu
                 <input type="text">

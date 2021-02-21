@@ -39,7 +39,7 @@ public class PlaceControler {
     }
 
     @PutMapping(path = "/places/{id}")
-    ResponseEntity<?> updatePlace(@PathVariable int id, @RequestBody Place toUpdate)
+    ResponseEntity<?> updatePlace(@PathVariable long id, @RequestBody Place toUpdate)
     {
         if (placeRepository.existsById(id)) {
             placeRepository.save(toUpdate);

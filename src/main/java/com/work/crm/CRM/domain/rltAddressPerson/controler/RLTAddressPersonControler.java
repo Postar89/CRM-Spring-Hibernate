@@ -39,7 +39,7 @@ public class RLTAddressPersonControler {
     }
 
     @PutMapping(path = "/relation/{id}")
-    ResponseEntity<?> updateMeeting(@PathVariable int id, @RequestBody RLTAddressPerson toUpdate)
+    ResponseEntity<?> updateMeeting(@PathVariable long id, @RequestBody RLTAddressPerson toUpdate)
     {
         if (rltAddressPersonRepository.existsById(id)) {
             rltAddressPersonRepository.save(toUpdate);

@@ -10,7 +10,7 @@ public class Person {
     @GeneratedValue(generator = "idPersonSequence")
     @SequenceGenerator(schema = "CRM", name = "idPersonSequence", sequenceName = "CRM_PERSON_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
     @Column(name = "DOC_NUMBER")
     private String docNumber;
@@ -19,7 +19,7 @@ public class Person {
     private String docType;
     @NotBlank
     @Column(name = "ID_NUMBER")
-    private int idNumber;
+    private long idNumber;
     @NotBlank
     @Column(name = "NAME")
     private String name;
@@ -32,7 +32,7 @@ public class Person {
 
     }
 
-    public Person(String name, String surname, String docNumber, String docType,int idNumber)
+    public Person(String name, String surname, String docNumber, String docType,long idNumber)
     {
         this.docNumber = docNumber;
         this.docType = docType;
@@ -58,11 +58,11 @@ public class Person {
         this.docType = docType;
     }
 
-    public int getIdNumber() {
+    public long getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(int idNumber) {
+    public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
     }
 

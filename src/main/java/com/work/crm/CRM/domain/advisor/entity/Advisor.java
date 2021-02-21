@@ -10,7 +10,7 @@ public class Advisor {
     @GeneratedValue(generator = "idAdvisorSequence")
     @SequenceGenerator(schema = "CRM", name = "idAdvisorSequence", sequenceName = "CRM_ADVISOR_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
     @Column(name = "LOGIN")
     private String login;
@@ -22,10 +22,10 @@ public class Advisor {
     private String pass;
     @NotBlank
     @Column(name = "PLACE_ID")
-    private int placeId ;
+    private long placeId ;
     @NotBlank
     @Column(name = "ROLE")
-    private int role ;
+    private long role ;
     @NotBlank
     @Column(name = "SURNAME")
     private String surname;
@@ -54,19 +54,19 @@ public class Advisor {
         this.pass = pass;
     }
 
-    int getPlaceId() {
+    long getPlaceId() {
         return placeId;
     }
 
-    void setPlaceId(int placeId) {
+    void setPlaceId(long placeId) {
         this.placeId = placeId;
     }
 
-    int getRole() {
+    long getRole() {
         return role;
     }
 
-    void setRole(int role) {
+    void setRole(long role) {
         this.role = role;
     }
 

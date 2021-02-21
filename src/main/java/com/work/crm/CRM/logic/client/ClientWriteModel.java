@@ -1,14 +1,11 @@
-package com.work.crm.CRM.logic.client.controler;
+package com.work.crm.CRM.logic.client;
 
 import com.work.crm.CRM.domain.person.entity.Person;
-
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
 
 public class ClientWriteModel {
     private String docNumber;
     private String docType;
-    private int idNumber;
+    private long idNumber;
     private String name;
     private String surname;
 
@@ -28,11 +25,11 @@ public class ClientWriteModel {
         this.docType = docType;
     }
 
-    public int getIdNumber() {
+    public long getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(int idNumber) {
+    public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
     }
 

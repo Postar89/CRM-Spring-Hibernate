@@ -40,7 +40,7 @@ public class AdvisorControler {
     }
 
     @PutMapping(path = "/advisors/{id}")
-    ResponseEntity<?> updateAdvisors(@PathVariable int id, @RequestBody Advisor toUpdate)
+    ResponseEntity<?> updateAdvisors(@PathVariable long id, @RequestBody Advisor toUpdate)
     {
         if (advisorRepository.existsById(id)) {
             advisorRepository.save(toUpdate);

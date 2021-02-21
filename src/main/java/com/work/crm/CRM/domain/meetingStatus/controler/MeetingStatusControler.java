@@ -40,7 +40,7 @@ public class MeetingStatusControler {
     }
 
     @PutMapping(path = "/status/{id}")
-    ResponseEntity<?> updateCountry(@PathVariable int id, @RequestBody MeetingStatus toUpdate)
+    ResponseEntity<?> updateCountry(@PathVariable Long id, @RequestBody MeetingStatus toUpdate)
     {
         if (meetingStatusRepository.existsById(id)) {
             meetingStatusRepository.save(toUpdate);

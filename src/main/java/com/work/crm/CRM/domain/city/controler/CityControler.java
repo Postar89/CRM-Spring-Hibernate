@@ -42,7 +42,7 @@ public class CityControler {
     }
 
     @PutMapping(path = "/cities/{id}")
-    ResponseEntity<?> updateCity(@PathVariable int id, @RequestBody City toUpdate)
+    ResponseEntity<?> updateCity(@PathVariable long id, @RequestBody City toUpdate)
     {
         if (cityRepository.existsById(id)) {
             cityRepository.save(toUpdate);

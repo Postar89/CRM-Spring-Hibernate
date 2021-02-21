@@ -7,19 +7,24 @@ import javax.validation.constraints.*;
 @Table(name = "COUNTRY")
 public class Country {
     @Id
+
     @GeneratedValue(generator = "idCountrySequence")
     @SequenceGenerator(schema = "CRM", name = "idCountrySequence", sequenceName = "CRM_COUNTRY_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @NotBlank
     @Column(name = "COUNTRY")
     private String city;
 
-    String getCity() {
+    long getId() {
+        return id;
+    }
+
+    public String getCity() {
         return city;
     }
 
-    void setCity(String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 }

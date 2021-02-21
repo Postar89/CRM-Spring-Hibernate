@@ -11,33 +11,33 @@ public class Meeting {
     @GeneratedValue(generator = "idMeetingSequence")
     @SequenceGenerator(schema = "CRM", name = "idMeetingSequence", sequenceName = "CRM_MEETING_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column (name = "ID")
-    private int id;
+    private long id;
     @NotBlank
     @Column (name = "ADVISOR_ID")
-    private int advisorId;
+    private long advisorId;
     @NotBlank
     @Column (name = "CREATION_DATE")
     private Date creatrionDate;
     @Column (name = "MEETING_DATE")
     private Date meetingDate;
     @NotBlank
-    @OneToMany
+
     @Column (name = "PLACE_ID")
-    private int placeId;
+    private long placeId;
     @NotBlank
-    @OneToMany
+
     @Column (name = "PRODUCT_ID")
     private String productId;
     @NotBlank
-    @OneToMany
-    @Column (name = "STATUS_ID")
-    private int statusId;
 
-    int getAdvisorId() {
+    @Column (name = "STATUS_ID")
+    private long statusId;
+
+    long getAdvisorId() {
         return advisorId;
     }
 
-    void setAdvisorId(int advisorId) {
+    void setAdvisorId(long advisorId) {
         this.advisorId = advisorId;
     }
 
@@ -57,11 +57,11 @@ public class Meeting {
         this.meetingDate = meetingDate;
     }
 
-    int getPlaceId() {
+    long getPlaceId() {
         return placeId;
     }
 
-    void setPlaceId(int placeId) {
+    void setPlaceId(long placeId) {
         this.placeId = placeId;
     }
 
@@ -73,11 +73,11 @@ public class Meeting {
         this.productId = productId;
     }
 
-    int getStatusId() {
+    long getStatusId() {
         return statusId;
     }
 
-    void setStatusId(int statusId) {
+    void setStatusId(long statusId) {
         this.statusId = statusId;
     }
 }

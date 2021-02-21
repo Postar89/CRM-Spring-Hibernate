@@ -10,7 +10,7 @@ public interface RLTAddressPersonRepository {
     List<RLTAddressPerson> findAll();
     Page<RLTAddressPerson> findAll(Pageable page);
     Optional<RLTAddressPerson> findById(Integer i);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     RLTAddressPerson save(RLTAddressPerson entity);
 //    List<RLTAddressPerson> saveAll(List<RLTAddressPerson> entities);
 

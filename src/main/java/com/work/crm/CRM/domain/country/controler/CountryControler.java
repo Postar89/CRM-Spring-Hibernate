@@ -40,7 +40,7 @@ public class CountryControler {
     }
 
     @PutMapping(path = "/countries/{id}")
-    ResponseEntity<?> updateCountry(@PathVariable int id, @RequestBody Country toUpdate)
+    ResponseEntity<?> updateCountry(@PathVariable long id, @RequestBody Country toUpdate)
     {
         if (countryRepository.existsById(id)) {
             countryRepository.save(toUpdate);

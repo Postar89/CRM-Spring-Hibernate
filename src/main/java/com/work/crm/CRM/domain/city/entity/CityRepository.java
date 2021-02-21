@@ -10,6 +10,6 @@ public interface CityRepository {
     List<City> findAll();
     Page<City> findAll(Pageable page);
     Optional<City> findById(Integer page);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     City save(City entity);
 }

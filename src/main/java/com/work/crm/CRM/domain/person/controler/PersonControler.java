@@ -39,7 +39,7 @@ public class PersonControler {
     }
 
     @PutMapping(path = "/persons/{id}")
-    ResponseEntity<?> updateCountry(@PathVariable int id, @RequestBody Person toUpdate)
+    ResponseEntity<?> updateCountry(@PathVariable long id, @RequestBody Person toUpdate)
     {
         if (personRepository.existsById(id)) {
             personRepository.save(toUpdate);
