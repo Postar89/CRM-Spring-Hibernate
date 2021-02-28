@@ -33,6 +33,27 @@ public class Meeting {
     @Column (name = "STATUS_ID")
     private long statusId;
 
+    public Meeting( long advisorId,  Date creatrionDate, Date meetingDate,  long placeId,  String productId,  long statusId) {
+        this.advisorId = advisorId;
+        this.creatrionDate = creatrionDate;
+        this.meetingDate = meetingDate;
+        this.placeId = placeId;
+        this.productId = productId;
+        this.statusId = statusId;
+    }
+
+    public Meeting() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     long getAdvisorId() {
         return advisorId;
     }

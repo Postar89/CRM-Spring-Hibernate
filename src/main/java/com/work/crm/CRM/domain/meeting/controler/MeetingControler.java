@@ -1,52 +1,47 @@
 package com.work.crm.CRM.domain.meeting.controler;
 
-import com.work.crm.CRM.domain.country.controler.CountryControler;
-import com.work.crm.CRM.domain.country.entity.Country;
 import com.work.crm.CRM.domain.meeting.entity.Meeting;
-import com.work.crm.CRM.domain.meeting.entity.MeetingRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.meeting.entity.MeetingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/api/meeting")
+@CrossOrigin("http://localhost:3000")
 public class MeetingControler {
-    private static final Logger logger = LoggerFactory.getLogger(CountryControler.class);
-    private final MeetingRepository meetingRepository;
+    @Autowired
+    MeetingService service;
 
-    public MeetingControler(MeetingRepository meetingRepository) {
-        this.meetingRepository = meetingRepository;
-    }
 
-    @GetMapping(value = "/meetings", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Meeting>> readAllMeetings() {
-        logger.warn("Exposing all the meetings");
-        return ResponseEntity.ok(meetingRepository.findAll());
-    }
-
-    @GetMapping("/meetings")
-    ResponseEntity<List<Meeting>> readAllMeetings(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(meetingRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/meetings")
-    ResponseEntity<?> saveCountry(@RequestBody Meeting meeting)
+    @GetMapping
+    public List<Meeting> getAll()
     {
-        logger.warn("Saving meeting");
-        return  ResponseEntity.ok(meetingRepository.save(meeting));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/meetings/{id}")
-    ResponseEntity<?> updateMeeting(@PathVariable long id, @RequestBody Meeting toUpdate)
+    @GetMapping("/{id}")
+    public Meeting getMeeting(@PathVariable long id)
     {
-        if (meetingRepository.existsById(id)) {
-            meetingRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping
+    public void createMeeting(@RequestBody Meeting source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateMeeting(@PathVariable long id, @RequestBody Meeting source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMeeting(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }
+

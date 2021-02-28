@@ -1,52 +1,47 @@
 package com.work.crm.CRM.domain.country.controler;
 
-import com.work.crm.CRM.domain.city.entity.City;
+
 import com.work.crm.CRM.domain.country.entity.Country;
-import com.work.crm.CRM.domain.country.entity.CountryRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.country.entity.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/api/country")
+@CrossOrigin("http://localhost:3000")
 public class CountryControler {
 
-    private static final Logger logger = LoggerFactory.getLogger(CountryControler.class);
-    private final CountryRepository countryRepository;
+    @Autowired
+    CountryService service;
 
-    public CountryControler(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
-
-    @GetMapping(value = "/countries", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Country>> readAllCountries() {
-        logger.warn("Exposing all the countries");
-        return ResponseEntity.ok(countryRepository.findAll());
-    }
-
-    @GetMapping("/countries")
-    ResponseEntity<List<Country>> readAllCountries(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(countryRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/countries")
-    ResponseEntity<?> saveCountry(@RequestBody Country country)
+    @GetMapping
+    public List<Country> getAll()
     {
-        logger.warn("Saving country");
-        return  ResponseEntity.ok(countryRepository.save(country));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/countries/{id}")
-    ResponseEntity<?> updateCountry(@PathVariable long id, @RequestBody Country toUpdate)
+    @GetMapping("/{id}")
+    public Country getCountry(@PathVariable long id)
     {
-        if (countryRepository.existsById(id)) {
-            countryRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping
+    public void createCountry(@RequestBody Country source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateCountry(@PathVariable long id, @RequestBody Country source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCountry(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }

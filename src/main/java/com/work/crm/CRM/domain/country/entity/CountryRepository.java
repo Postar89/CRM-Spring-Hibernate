@@ -1,16 +1,39 @@
 package com.work.crm.CRM.domain.country.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface CountryRepository {
-    List<Country> findAll();
-    Page<Country> findAll(Pageable page);
-    Optional<Country> findById(Integer i);
-    Country save(Country entity);
-    boolean existsById(Long id);
-//    List<Country> saveAll(List<Country> entities);
+@Repository
+public class CountryRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Country source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(Country source) {
+        em.merge(source);
+    }
+
+    public Country findById(long id) {
+        return em.find(Country.class, id);
+    }
+
+    public List<Country> getAll() {
+        return em.createQuery("Select table from Country table", Country.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Country source){
+        em.remove(source);
+    }
+    
 }

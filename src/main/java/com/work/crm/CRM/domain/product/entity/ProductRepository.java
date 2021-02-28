@@ -1,16 +1,38 @@
 package com.work.crm.CRM.domain.product.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface ProductRepository {
-    List<Product> findAll();
-    Page<Product> findAll(Pageable page);
-    Optional<Product> findById(Integer i);
-    boolean existsById(Long id);
-    Product save(Product entity);
-//    List<Product> saveAll(List<Product> entities);
+@Repository
+public class ProductRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Product source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(Product source) {
+        em.merge(source);
+    }
+
+    public Product findById(long id) {
+        return em.find(Product.class, id);
+    }
+
+    public List<Product> getAll() {
+        return em.createQuery("Select table from Product table", Product.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Product source){
+        em.remove(source);
+    }
 }

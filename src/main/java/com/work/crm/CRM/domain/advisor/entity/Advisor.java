@@ -30,6 +30,29 @@ public class Advisor {
     @Column(name = "SURNAME")
     private String surname;
 
+
+
+    public Advisor(String login,String name,String pass,long placeId, long role,String surname) {
+        this.login = login;
+        this.name = name;
+        this.pass = pass;
+        this.placeId = placeId;
+        this.role = role;
+        this.surname = surname;
+    }
+
+    public Advisor() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     String getLogin() {
         return login;
     }

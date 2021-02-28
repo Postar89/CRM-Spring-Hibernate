@@ -1,16 +1,39 @@
 package com.work.crm.CRM.domain.place.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface PlaceRepository {
-    List<Place> findAll();
-    Page<Place> findAll(Pageable page);
-    Optional<Place> findById(Integer i);
-    boolean existsById(Long id);
-    Place save(Place entity);
-//    List<Place> saveAll(List<Place> entities);
+@Repository
+public class PlaceRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Place source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(Place source) {
+        em.merge(source);
+    }
+
+    public Place findById(long id) {
+        return em.find(Place.class, id);
+    }
+
+    public List<Place> getAll() {
+        return em.createQuery("Select table from Place table", Place.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Place source){
+        em.remove(source);
+    }
 }
+

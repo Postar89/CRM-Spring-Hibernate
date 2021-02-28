@@ -15,6 +15,17 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
+
+
+    public Product(String description, String name) {
+        this.description = description;
+        this.name = name;
+    }
+
+    public Product() {
+
+    }
+
     String getId() {
         return id;
     }

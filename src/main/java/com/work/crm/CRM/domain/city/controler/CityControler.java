@@ -1,61 +1,48 @@
 package com.work.crm.CRM.domain.city.controler;
 
-import com.work.crm.CRM.domain.address.entity.Address;
+
 import com.work.crm.CRM.domain.city.entity.City;
-import com.work.crm.CRM.domain.city.entity.CityRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.city.entity.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/city")
+@CrossOrigin("http://localhost:3000")
 public class CityControler {
 
-    private static final Logger logger = LoggerFactory.getLogger(CityControler.class);
-    private final CityRepository cityRepository;
+    @Autowired
+    CityService service;
 
-
-    public CityControler(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
-
-    @GetMapping(value = "/cities", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<City>> readAllCities() {
-        logger.warn("Exposing all the cities");
-        return ResponseEntity.ok(cityRepository.findAll());
-    }
-
-    @GetMapping("/cities")
-    ResponseEntity<List<City>> readAllCities(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(cityRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/cities")
-    ResponseEntity<?> saveCity(@RequestBody City city)
+    @GetMapping
+    public List<City> getAll()
     {
-        logger.warn("Saving city");
-        return  ResponseEntity.ok(cityRepository.save(city));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/cities/{id}")
-    ResponseEntity<?> updateCity(@PathVariable long id, @RequestBody City toUpdate)
+    @GetMapping("/{id}")
+    public City getCity(@PathVariable long id)
     {
-        if (cityRepository.existsById(id)) {
-            cityRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
     }
 
-//    @PostMapping(path = "/cities")
-//    ResponseEntity<List<City>> saveCities(@RequestBody List<City> cities)
-//    {
-//        logger.warn("Remove Cities");
-//        return ResponseEntity.ok(cityRepository.saveAll(cities));
-//    }
+    @PostMapping
+    public void createCity(@RequestBody City source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateCity(@PathVariable long id, @RequestBody City source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCity(@PathVariable long id)
+    {
+        this.service.delete(id);
+    }
 }

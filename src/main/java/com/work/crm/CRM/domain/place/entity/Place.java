@@ -12,19 +12,35 @@ public class Place {
     @Column(name = "ID")
     private long id;
     @NotBlank
-
-    @Column(name = "ADDRES_ID")
-    private long addressId;
+    @JoinColumn(name = "ADDRES_ID",foreignKey = @ForeignKey(name = "FK_PLACE_ADDRESS"))
+    private long addresId;
     @NotBlank
     @Column(name = "NAME")
     private String name;
 
-    long getAddressId() {
-        return addressId;
+    public Place(long addresId, String name) {
+        this.addresId = addresId;
+        this.name = name;
     }
 
-    void setAddressId(long addressId) {
-        this.addressId = addressId;
+    public Place() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    long getAddresId() {
+        return addresId;
+    }
+
+    void setAddresId(long addresId) {
+        this.addresId = addresId;
     }
 
     String getName() {

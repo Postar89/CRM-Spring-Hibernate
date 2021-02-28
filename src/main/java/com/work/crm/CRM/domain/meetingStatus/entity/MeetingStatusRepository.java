@@ -1,16 +1,39 @@
 package com.work.crm.CRM.domain.meetingStatus.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface MeetingStatusRepository {
-    List<MeetingStatus> findAll();
-    Page<MeetingStatus> findAll(Pageable page);
-    Optional<MeetingStatus> findById(Integer i);
-    boolean existsById(Long id);
-    MeetingStatus save(MeetingStatus entity);
-//    List<MeetingStatus> saveAll(List<MeetingStatus> entities);
+@Repository
+public class MeetingStatusRepository {
+    
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(MeetingStatus source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(MeetingStatus source) {
+        em.merge(source);
+    }
+
+    public MeetingStatus findById(long id) {
+        return em.find(MeetingStatus.class, id);
+    }
+
+    public List<MeetingStatus> getAll() {
+        return em.createQuery("Select table from MeetingStatus table", MeetingStatus.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(MeetingStatus source){
+        em.remove(source);
+    }
 }

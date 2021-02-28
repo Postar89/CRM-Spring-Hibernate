@@ -1,17 +1,39 @@
 package com.work.crm.CRM.domain.address.entity;
 
+import org.springframework.stereotype.Repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface AddressRepository {
-    List<Address> findAll();
-    Page<Address> findAll(Pageable page);
-    Optional<Address> findById(Integer i);
-    boolean existsById(Long id);
-    Address save(Address entity);
+@Repository
+public class AddressRepository {
 
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Address source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(Address source) {
+        em.merge(source);
+    }
+
+    public Address findById(long addressId) {
+        return em.find(Address.class, addressId);
+    }
+
+    public List<Address> getAll() {
+        return em.createQuery("Select address from Address address", Address.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Address source){
+        em.remove(source);
+    }
 }

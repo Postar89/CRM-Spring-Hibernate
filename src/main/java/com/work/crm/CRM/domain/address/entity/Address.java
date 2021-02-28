@@ -34,6 +34,23 @@ public class Address {
 
     public Address(){}
 
+    public Address(long cityId, long countryId, String houseNb, String passCode, String street, String floatNb){
+        this.cityId = cityId;
+        this.countryId = countryId;
+        this.houseNb = houseNb;
+        this.passCode = passCode;
+        this.street = street;
+        this.floatNb = floatNb;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getCityId() {
         return cityId;
     }

@@ -1,15 +1,38 @@
 package com.work.crm.CRM.domain.city.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface CityRepository {
-    List<City> findAll();
-    Page<City> findAll(Pageable page);
-    Optional<City> findById(Integer page);
-    boolean existsById(Long id);
-    City save(City entity);
+@Repository
+public class CityRepository {
+    @PersistenceContext
+    EntityManager em;
+
+    @Transactional
+    public void create(City source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(City source) {
+        em.merge(source);
+    }
+
+    public City findById(long id) {
+        return em.find(City.class, id);
+    }
+
+    public List<City> getAll() {
+        return em.createQuery("Select table from City table", City.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(City source){
+        em.remove(source);
+    }
 }

@@ -1,53 +1,47 @@
 package com.work.crm.CRM.domain.advisor.controler;
 
-
 import com.work.crm.CRM.domain.advisor.entity.Advisor;
-import com.work.crm.CRM.domain.advisor.entity.AdvisorRepository;
-import com.work.crm.CRM.domain.city.controler.CityControler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.advisor.entity.AdvisorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/address")
+@CrossOrigin("http://localhost:3000")
 public class AdvisorControler {
-    private static final Logger logger = LoggerFactory.getLogger(CityControler.class);
-    private final AdvisorRepository advisorRepository;
+   
+    @Autowired
+    AdvisorService service;
 
-    public AdvisorControler(AdvisorRepository advisorRepository){
-        this.advisorRepository=advisorRepository;
-    }
-
-    @GetMapping(value = "/advisors", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Advisor>> readAllAdvisors() {
-        logger.warn("Exposing all the advosors");
-        return ResponseEntity.ok(advisorRepository.findAll());
-    }
-
-    @GetMapping("/advisors")
-    ResponseEntity<List<Advisor>> readAllAdvisors(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(advisorRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/advisors")
-    ResponseEntity<?> saveAdvisors(@RequestBody Advisor advospr)
+    @GetMapping
+    public List<Advisor> getAll()
     {
-        logger.warn("Saving advisor");
-        return  ResponseEntity.ok(advisorRepository.save(advospr));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/advisors/{id}")
-    ResponseEntity<?> updateAdvisors(@PathVariable long id, @RequestBody Advisor toUpdate)
+    @GetMapping("/{id}")
+    public Advisor getAdvisor(@PathVariable long id)
     {
-        if (advisorRepository.existsById(id)) {
-            advisorRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
     }
 
+    @PostMapping
+    public void createAdvisor(@RequestBody Advisor source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateAdvisor(@PathVariable long id, @RequestBody Advisor source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAdvisor(@PathVariable long id)
+    {
+        this.service.delete(id);
+    }
 }

@@ -1,50 +1,50 @@
 package com.work.crm.CRM.domain.product.controler;
 
 import com.work.crm.CRM.domain.product.entity.Product;
-import com.work.crm.CRM.domain.product.entity.ProductRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.product.entity.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@RestController
+@RequestMapping("/api/product")
+@CrossOrigin("http://localhost:3000")
 public class ProductControler {
-    public static final Logger logger = LoggerFactory.getLogger(ProductControler.class);
-    public final ProductRepository productRepository;
+    
+    @Autowired
+    ProductService service;
 
-    public ProductControler(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
-    @GetMapping(value = "/Products", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Product>> readAllProducts() {
-        logger.warn("Exposing all the Products");
-        return ResponseEntity.ok(productRepository.findAll());
-    }
-
-    @GetMapping("/Products")
-    ResponseEntity<List<Product>> readAllProducts(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(productRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/Products")
-    ResponseEntity<?> saveProduct(@RequestBody Product product)
+    @GetMapping
+    public List<Product> getAll()
     {
-        logger.warn("Saving Product");
-        return  ResponseEntity.ok(productRepository.save(product));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/Products/{id}")
-    ResponseEntity<?> updateProduct(@PathVariable long id, @RequestBody Product toUpdate)
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable long id)
     {
-        if (productRepository.existsById(id)) {
-            productRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
     }
+
+    @PostMapping
+    public void createProduct(@RequestBody Product source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateProduct(@PathVariable long id, @RequestBody Product source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable long id)
+    {
+        this.service.delete(id);
+    }
+    
 }

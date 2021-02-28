@@ -15,6 +15,21 @@ public class MeetingStatus {
     @Column(name = "STATUS")
     private String status;
 
+    public MeetingStatus() {
+    }
+
+    public MeetingStatus(String status) {
+        this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     String getStatus() {
         return status;
     }

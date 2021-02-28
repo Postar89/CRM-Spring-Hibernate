@@ -1,14 +1,37 @@
 package com.work.crm.CRM.domain.advisor.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface AdvisorRepository {
-    List<Advisor> findAll();
-    Page<Advisor> findAll(Pageable page);
-    Optional<Advisor> findById(Integer i);
-    boolean existsById(Long id);
-    Advisor save(Advisor entity);
+@Repository
+public class AdvisorRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Advisor source)
+    {
+        em.persist(source);
+    }
+
+    @Transactional
+    public void update(Advisor source) {
+        em.merge(source);
+    }
+
+    public Advisor findById(long id) {
+        return em.find(Advisor.class, id);
+    }
+
+    public List<Advisor> getAll() {
+        return em.createQuery("Select table from Advisor table", Advisor.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Advisor source){
+        em.remove(source);
+    }
 }

@@ -19,7 +19,7 @@ public class Person {
     private String docType;
     @NotBlank
     @Column(name = "ID_NUMBER")
-    private long idNumber;
+    private String idNumber;
     @NotBlank
     @Column(name = "NAME")
     private String name;
@@ -27,12 +27,12 @@ public class Person {
     @Column(name = "SURNAME")
     private String surname;
 
-    Person()
+    public Person()
     {
 
     }
 
-    public Person(String name, String surname, String docNumber, String docType,long idNumber)
+    public Person(String name, String surname, String docNumber, String docType,String idNumber)
     {
         this.docNumber = docNumber;
         this.docType = docType;
@@ -40,6 +40,14 @@ public class Person {
         this.name = name;
         this.surname = surname;
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDocNumber() {
@@ -58,11 +66,11 @@ public class Person {
         this.docType = docType;
     }
 
-    public long getIdNumber() {
+    public String getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(long idNumber) {
+    public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
     }
 

@@ -14,17 +14,30 @@ public class Country {
     private long id;
     @NotBlank
     @Column(name = "COUNTRY")
-    private String city;
+    private String country;
+
+    public Country(String country)
+    {
+        this.country=country;
+    }
+
+    public Country() {
+
+    }
 
     long getId() {
         return id;
     }
 
-    public String getCity() {
-        return city;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

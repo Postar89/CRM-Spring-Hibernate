@@ -1,51 +1,47 @@
 package com.work.crm.CRM.domain.rltAddressPerson.controler;
 
-import com.work.crm.CRM.domain.meeting.entity.Meeting;
 import com.work.crm.CRM.domain.rltAddressPerson.entity.RLTAddressPerson;
-import com.work.crm.CRM.domain.rltAddressPerson.entity.RLTAddressPersonRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.rltAddressPerson.entity.RLTAddressPersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/rlt")
+@CrossOrigin("http://localhost:3000")
 public class RLTAddressPersonControler {
-    public static final Logger logger = LoggerFactory.getLogger(RLTAddressPersonControler.class);
-    public final RLTAddressPersonRepository rltAddressPersonRepository;
 
-    public RLTAddressPersonControler(RLTAddressPersonRepository rltAddressPersonRepository) {
-        this.rltAddressPersonRepository = rltAddressPersonRepository;
-    }
+    @Autowired
+    RLTAddressPersonService service;
 
-    @GetMapping(value = "/relation", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<RLTAddressPerson>> readAllRLTAddressPerson() {
-        logger.warn("Exposing all the RLTAddressPerson");
-        return ResponseEntity.ok(rltAddressPersonRepository.findAll());
-    }
-
-    @GetMapping("/relation")
-    ResponseEntity<List<RLTAddressPerson>> readAllRLTAddressPerson(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(rltAddressPersonRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/relation")
-    ResponseEntity<?> saveCountry(@RequestBody RLTAddressPerson rltAddressPerson)
+    @GetMapping
+    public List<RLTAddressPerson> getAll()
     {
-        logger.warn("Saving meeting");
-        return  ResponseEntity.ok(rltAddressPersonRepository.save(rltAddressPerson));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/relation/{id}")
-    ResponseEntity<?> updateMeeting(@PathVariable long id, @RequestBody RLTAddressPerson toUpdate)
+    @GetMapping("/{id}")
+    public RLTAddressPerson getRLTAddressPerson(@PathVariable long id)
     {
-        if (rltAddressPersonRepository.existsById(id)) {
-            rltAddressPersonRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping
+    public void createRLTAddressPerson(@RequestBody RLTAddressPerson source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateRLTAddressPerson(@PathVariable long id, @RequestBody RLTAddressPerson source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRLTAddressPerson(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }

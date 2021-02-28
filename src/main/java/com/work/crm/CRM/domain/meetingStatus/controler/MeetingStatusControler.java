@@ -1,52 +1,46 @@
 package com.work.crm.CRM.domain.meetingStatus.controler;
 
-import com.work.crm.CRM.domain.country.controler.CountryControler;
-import com.work.crm.CRM.domain.meeting.entity.Meeting;
 import com.work.crm.CRM.domain.meetingStatus.entity.MeetingStatus;
-import com.work.crm.CRM.domain.meetingStatus.entity.MeetingStatusRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.meetingStatus.entity.MeetingStatusService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/status")
+@CrossOrigin("http://localhost:3000")
 public class MeetingStatusControler {
-    private static final Logger logger = LoggerFactory.getLogger(CountryControler.class);
-    private final MeetingStatusRepository meetingStatusRepository;
+    @Autowired
+    MeetingStatusService service;
 
-    public MeetingStatusControler(MeetingStatusRepository meetingStatusRepository) {
-        this.meetingStatusRepository = meetingStatusRepository;
-    }
-
-    @GetMapping(value = "/status", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<MeetingStatus>> readAllMeetings() {
-        logger.warn("Exposing all the meetings statuts");
-        return ResponseEntity.ok(meetingStatusRepository.findAll());
-    }
-
-    @GetMapping("/status")
-    ResponseEntity<List<MeetingStatus>> readAllMeetings(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(meetingStatusRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/status")
-    ResponseEntity<?> saveCountry(@RequestBody MeetingStatus status)
+    @GetMapping
+    public List<MeetingStatus> getAll()
     {
-        logger.warn("Saving meeting status");
-        return  ResponseEntity.ok(meetingStatusRepository.save(status));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/status/{id}")
-    ResponseEntity<?> updateCountry(@PathVariable Long id, @RequestBody MeetingStatus toUpdate)
+    @GetMapping("/{id}")
+    public MeetingStatus getMeetingStatus(@PathVariable long id)
     {
-        if (meetingStatusRepository.existsById(id)) {
-            meetingStatusRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping
+    public void createMeetingStatus(@RequestBody MeetingStatus source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updateMeetingStatus(@PathVariable long id, @RequestBody MeetingStatus source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMeetingStatus(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }

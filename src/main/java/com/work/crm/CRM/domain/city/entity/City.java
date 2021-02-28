@@ -1,8 +1,5 @@
 package com.work.crm.CRM.domain.city.entity;
 
-import com.work.crm.CRM.domain.address.entity.Address;
-import com.work.crm.CRM.domain.address.entity.AddressRepository;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -20,10 +17,15 @@ public class City {
     @Column(name = "CITY")
     private String city;
 
-//    @OneToMany(targetEntity = Address.class)
-//    @JoinColumn(name = "CITY_ID")
-//    private Address address;
 
+    public City(String city)
+    {
+        this.city = city;
+    }
+
+    public City() {
+
+    }
 
     public long getId() {
         return id;

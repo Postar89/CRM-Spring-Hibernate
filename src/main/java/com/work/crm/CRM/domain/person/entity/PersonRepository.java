@@ -1,16 +1,42 @@
 package com.work.crm.CRM.domain.person.entity;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public interface PersonRepository {
-    List<Person> findAll();
-    Page<Person> findAll(Pageable page);
-    Optional<Person> findById(Integer i);
-    boolean existsById(Long id);
-    Person save(Person entity);
-//    List<Person> saveAll(List<Person> entities);
+@Repository
+public class PersonRepository {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    public void create(Person person) {
+        em.persist(person);
+    }
+
+    @Transactional
+    public void update(Person person) {
+        em.merge(person);
+    }
+
+    public Person findById(long personId) {
+        return em.find(Person.class, personId);
+    }
+
+    public List<Person> getAll() {
+        return em.createQuery("Select person from Person person", Person.class).getResultList();
+    }
+
+    public List<Person> getAllWithNameAndSurname(String name, String surname) {
+        return em.createQuery("SELECT person from Person person", Person.class).getResultList();
+    }
+
+    @Transactional
+    public void delete(Person person){
+        em.remove(person);
+    }
 }

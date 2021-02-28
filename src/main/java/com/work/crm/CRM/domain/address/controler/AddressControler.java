@@ -1,52 +1,47 @@
 package com.work.crm.CRM.domain.address.controler;
 
 import com.work.crm.CRM.domain.address.entity.Address;
-import com.work.crm.CRM.domain.address.entity.AddressRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.address.entity.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
+@CrossOrigin("http://localhost:3000")
 public class AddressControler {
 
-    private static final Logger logger = LoggerFactory.getLogger(AddressControler.class);
-    private final AddressRepository addressRepository;
+    @Autowired
+    AddressService service;
 
-    AddressControler(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
-    }
-
-    @GetMapping(value = "/addresses", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Address>> readAllAddress() {
-        logger.warn("Exposing all the address");
-        return ResponseEntity.ok(addressRepository.findAll());
-    }
-
-    @GetMapping("/addresses")
-    ResponseEntity<List<Address>> readAllAddress(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(addressRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/addresses")
-    ResponseEntity<?> saveAddress(@RequestBody Address address)
+    @GetMapping("/address")
+    public List<Address> getAll()
     {
-        logger.warn("Saving address");
-        return  ResponseEntity.ok(addressRepository.save(address));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/addresses/{id}")
-    ResponseEntity<?> updateAddress(@PathVariable Long id, @RequestBody Address toUpdate)
+    @GetMapping("/address/{id}")
+    public Address getAddress(@PathVariable long id)
     {
-        if (addressRepository.existsById(id)) {
-            addressRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping("/address")
+    public void createAddress(@RequestBody Address source)
+    {
+        this.service.createNewAddress(source);
+    }
+
+    @PutMapping("/address/{id}")
+    public void updateAddress(@PathVariable long id, @RequestBody Address source)
+    {
+        this.service.updateAddress(id, source);
+    }
+
+    @DeleteMapping("/address/{id}")
+    public void deleteAddress(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }

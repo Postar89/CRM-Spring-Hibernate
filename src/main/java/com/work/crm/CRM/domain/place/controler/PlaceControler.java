@@ -1,51 +1,48 @@
 package com.work.crm.CRM.domain.place.controler;
 
 import com.work.crm.CRM.domain.place.entity.Place;
-import com.work.crm.CRM.domain.place.entity.PlaceRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import com.work.crm.CRM.domain.place.entity.PlaceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/place")
+@CrossOrigin("http://localhost:3000")
 public class PlaceControler {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlaceControler.class);
-    private final PlaceRepository placeRepository;
+    @Autowired
+    PlaceService service;
 
-    public PlaceControler(PlaceRepository placeRepository) {
-        this.placeRepository = placeRepository;
-    }
 
-    @GetMapping(value = "/places", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Place>> readAllPlaces() {
-        logger.warn("Exposing all the places");
-        return ResponseEntity.ok(placeRepository.findAll());
-    }
-
-    @GetMapping("/places")
-    ResponseEntity<List<Place>> readAllPlaces(Pageable page){
-        logger.info("Read Page");
-        return ResponseEntity.ok(placeRepository.findAll(page).getContent());
-    }
-
-    @PostMapping(path = "/places")
-    ResponseEntity<?> savePlace(@RequestBody Place place)
+    @GetMapping
+    public List<Place> getAll()
     {
-        logger.warn("Saving place");
-        return  ResponseEntity.ok(placeRepository.save(place));
+        return this.service.getAll();
     }
 
-    @PutMapping(path = "/places/{id}")
-    ResponseEntity<?> updatePlace(@PathVariable long id, @RequestBody Place toUpdate)
+    @GetMapping("/{id}")
+    public Place getPlace(@PathVariable long id)
     {
-        if (placeRepository.existsById(id)) {
-            placeRepository.save(toUpdate);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return this.service.getWithId(id);
+    }
+
+    @PostMapping
+    public void createPlace(@RequestBody Place source)
+    {
+        this.service.createNew(source);
+    }
+
+    @PutMapping("/{id}")
+    public void updatePlace(@PathVariable long id, @RequestBody Place source)
+    {
+        this.service.update(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePlace(@PathVariable long id)
+    {
+        this.service.delete(id);
     }
 }
