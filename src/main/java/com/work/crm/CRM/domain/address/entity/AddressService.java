@@ -11,7 +11,7 @@ public class AddressService {
     @Autowired
     AddressRepository repository;
 
-    public void createNewAddress(Address source)
+    public void createNew(Address source)
     {
         repository.create(source);
     }

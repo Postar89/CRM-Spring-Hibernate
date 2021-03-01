@@ -8,38 +8,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/address")
 public class AddressControler {
 
     @Autowired
     AddressService service;
 
-    @GetMapping("/address")
+    @GetMapping
     public List<Address> getAll()
     {
         return this.service.getAll();
     }
 
-    @GetMapping("/address/{id}")
+    @GetMapping("/{id}")
     public Address getAddress(@PathVariable long id)
     {
         return this.service.getWithId(id);
     }
 
-    @PostMapping("/address")
+    @PostMapping
     public void createAddress(@RequestBody Address source)
     {
-        this.service.createNewAddress(source);
+        this.service.createNew(source);
     }
 
-    @PutMapping("/address/{id}")
+    @PutMapping("/{id}")
     public void updateAddress(@PathVariable long id, @RequestBody Address source)
     {
         this.service.updateAddress(id, source);
     }
 
-    @DeleteMapping("/address/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAddress(@PathVariable long id)
     {
         this.service.delete(id);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api/advisor")
 @CrossOrigin("http://localhost:3000")
 public class AdvisorControler {
    
@@ -21,7 +21,7 @@ public class AdvisorControler {
         return this.service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Advisor getAdvisor(@PathVariable long id)
     {
         return this.service.getWithId(id);

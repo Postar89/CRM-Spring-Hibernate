@@ -14,10 +14,10 @@ public class Address {
     @SequenceGenerator(schema = "CRM", name = "idAddressSequence", sequenceName = "CRM_ADDRESS_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name="ID")
     private long id;
-    @NotBlank
+    @NotNull
     @JoinColumn(name="CITY_ID",foreignKey = @ForeignKey(name = "FK_ADDRESS_CITY"))
     private long cityId;
-    @NotBlank
+    @NotNull
     @JoinColumn(name="COUNTRY_ID",foreignKey = @ForeignKey(name = "FK_ADDRESS_COUNTRY"))
     private long countryId;
     @NotBlank

@@ -7,9 +7,11 @@ import org.springframework.data.rest.core.event.ValidatingRepositoryEventListene
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @SpringBootApplication
+@CrossOrigin("http://localhost:3000")
 public class CrmApplication implements RepositoryRestConfigurer {
 
 	public static void main(String[] args) {

@@ -29,7 +29,7 @@ public class AddressRepository {
     }
 
     public List<Address> getAll() {
-        return em.createQuery("Select address from Address address", Address.class).getResultList();
+        return em.createQuery("Select table from Address table", Address.class).getResultList();
     }
 
     @Transactional
