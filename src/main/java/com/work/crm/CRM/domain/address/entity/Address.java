@@ -1,9 +1,13 @@
 package com.work.crm.CRM.domain.address.entity;
 
 import com.work.crm.CRM.domain.city.entity.City;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="ADDRESS")
@@ -34,6 +38,18 @@ public class Address {
 
     public Address(){}
 
+    public Address(JSONObject object){
+        this.cityId = object.getLong("cityId");
+        this.countryId = object.getLong("countryId");
+        this.houseNb = object.getString("houseNb");
+        this.passCode = object.getString("passCode");
+        this.street = object.getString("street");
+        if(object.has("floatNb")) {
+            this.floatNb = object.getString("floatNb");
+        }
+    }
+
+
     public Address(long cityId, long countryId, String houseNb, String passCode, String street, String floatNb){
         this.cityId = cityId;
         this.countryId = countryId;
@@ -42,6 +58,7 @@ public class Address {
         this.street = street;
         this.floatNb = floatNb;
     }
+
 
     public long getId() {
         return id;

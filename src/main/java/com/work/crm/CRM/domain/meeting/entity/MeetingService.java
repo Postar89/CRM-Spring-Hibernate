@@ -1,8 +1,6 @@
 package com.work.crm.CRM.domain.meeting.entity;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -10,20 +8,11 @@ public class MeetingService {
     @Autowired
     MeetingRepository repository;
 
-    public void createNew(Meeting source)
-    {
-        repository.create(source);
-    }
+    public void createNew(Meeting source){repository.create(source);}
 
-    public List<Meeting> getAll()
-    {
-        return repository.getAll();
-    }
+    public List<Meeting> getAll(){return repository.getAll();}
 
-    public Meeting getWithId(long id)
-    {
-        return repository.findById(id);
-    }
+    public Meeting getWithId(long id){return repository.findById(id);}
 
     public void update(long id, Meeting source) {
         Meeting existing = repository.findById(id);

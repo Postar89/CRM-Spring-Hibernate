@@ -1,5 +1,7 @@
 package com.work.crm.CRM.domain.person.entity;
 
+import org.json.JSONObject;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -30,6 +32,15 @@ public class Person {
     public Person()
     {
 
+    }
+
+    public Person(JSONObject object)
+    {
+        this.docNumber = object.getString("docNumber");
+        this.docType = object.getString("docType");
+        this.idNumber = object.getString("idNumber");
+        this.name = object.getString("name");
+        this.surname = object.getString("surname");
     }
 
     public Person(String name, String surname, String docNumber, String docType,String idNumber)

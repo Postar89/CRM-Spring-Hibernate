@@ -18,7 +18,7 @@ public class Meeting {
     private long advisorId;
     @NotBlank
     @Column (name = "CREATION_DATE")
-    private Date creatrionDate;
+    private Date creationDate;
     @Column (name = "MEETING_DATE")
     private Date meetingDate;
     @NotNull
@@ -34,9 +34,9 @@ public class Meeting {
     private long personId;
 
 
-    public Meeting( long advisorId,  Date creatrionDate, Date meetingDate,  long placeId,  String productId,  long statusId, long personId) {
+    public Meeting(long advisorId, Date creationDate, Date meetingDate, long placeId, String productId, long statusId, long personId) {
         this.advisorId = advisorId;
-        this.creatrionDate = creatrionDate;
+        this.creationDate = creationDate;
         this.meetingDate = meetingDate;
         this.placeId = placeId;
         this.productId = productId;
@@ -44,9 +44,9 @@ public class Meeting {
         this.personId = personId;
     }
 
-    public Meeting(long advisorId, Date creatrionDate, long placeId, String productId, long statusId) {
+    public Meeting(long advisorId, Date creationDate, long placeId, String productId, long statusId) {
         this.advisorId = advisorId;
-        this.creatrionDate = creatrionDate;
+        this.creationDate = creationDate;
         this.placeId = placeId;
         this.productId = productId;
         this.statusId = statusId;
@@ -72,12 +72,12 @@ public class Meeting {
         this.advisorId = advisorId;
     }
 
-    Date getCreatrionDate() {
-        return creatrionDate;
+    Date getCreationDate() {
+        return creationDate;
     }
 
-    void setCreatrionDate(Date creatrionDate) {
-        this.creatrionDate = creatrionDate;
+    void setCreationDate(Date creatrionDate) {
+        this.creationDate = creatrionDate;
     }
 
     Date getMeetingDate() {

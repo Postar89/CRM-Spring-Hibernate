@@ -8,36 +8,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/persons")
 @CrossOrigin("http://localhost:3000")
 public class PersonControler {
 
     @Autowired
     PersonService personService;
 
-    @GetMapping("/persons")
+    @GetMapping
     public List<Person> getAll()
     {
         return this.personService.getAll();
     }
 
-    @GetMapping("/persons/{id}")
+    @GetMapping("/{id}")
     public Person getPerson(@PathVariable long id){
         return this.personService.getWithId(id);
     }
 
-    @PostMapping("/persons")
+    @PostMapping
     public void createPerson(@RequestBody Person person){
         this.personService.createNewPerson(person);
     }
 
-    @PutMapping("/persons/{id}")
+    @GetMapping("/{name}/{surname}")
+    public List<Person> getAllWithNameAndSurname(@PathVariable String name, @PathVariable String surname){
+        return this.personService.getPersonWithNameAndSurname(name,surname);
+    }
+
+    @GetMapping("/{name}/{surname}/{idNumber}/{docType}/{docNumber}")
+    public Person getPerson(@PathVariable String name, @PathVariable String surname, @PathVariable String idNumber, @PathVariable String docType,
+                                  @PathVariable String docNumber){
+        return this.personService.getPerson(name,surname,idNumber,docType,docNumber);
+    }
+
+    @PutMapping("/{id}")
     public void updatePerson(@PathVariable long id, @RequestBody Person person)
     {
         this.personService.updatePerson(id, person);
     }
 
-    @DeleteMapping("/persons/{id}")
+    @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable long id)
     {
         this.personService.delete(id);

@@ -1,17 +1,15 @@
 package com.work.crm.CRM.domain.meeting.controler;
-
 import com.work.crm.CRM.domain.meeting.entity.Meeting;
 import com.work.crm.CRM.domain.meeting.entity.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/meeting")
 public class MeetingControler {
     @Autowired
     MeetingService service;
-
 
     @GetMapping
     public List<Meeting> getAll()

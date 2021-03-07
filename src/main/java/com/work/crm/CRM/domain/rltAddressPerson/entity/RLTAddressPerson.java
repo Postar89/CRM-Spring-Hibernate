@@ -11,15 +11,13 @@ public class RLTAddressPerson {
     @SequenceGenerator(schema = "CRM", name = "idRAPSequence", sequenceName = "CRM_RAP_INCREMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private long id;
-
-    @NotBlank
+    @NotNull
     @JoinColumn(name = "ADDRESS_ID", foreignKey = @ForeignKey(name="FK_RAP_ADDRESS"))
     private long addressId;
-    @NotBlank
+    @NotNull
     @Column(name = "IS_MAIN")
     private char isMain;
-
-    @NotBlank
+    @NotNull
     @JoinColumn(name = "PERSON_ID", foreignKey = @ForeignKey(name="FK_RAP_PERSON"))
     private long personId;
 

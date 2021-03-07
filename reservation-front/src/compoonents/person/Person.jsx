@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import {UpdatePerson} from "./UpdatePerson"
 export const Person = () => {
     
 
@@ -22,6 +22,12 @@ export const Person = () => {
             data => console.log(data)
         )   
     };
+
+    const updatePerson = (event, person) =>{
+        event.preventDefault();
+        event.stopPropagation();
+        <UpdatePerson person = {person}/>
+    }
     
 
     return (
@@ -45,6 +51,9 @@ export const Person = () => {
                         <td>{person.idNumber}</td>
                         <td>{person.docType}</td>
                         <td>{person.docNumber}</td> 
+                        <td>
+                            <button onClick={event => updatePerson(event, person)}>Edytuj</button>
+                        </td>
                         <td>
                             <button onClick={event => removePerson(event, person.id)}>Usuń</button>
                         </td>                       

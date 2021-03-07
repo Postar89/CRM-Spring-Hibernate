@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @SpringBootApplication
-@CrossOrigin("http://localhost:3000")
 public class CrmApplication implements RepositoryRestConfigurer {
 
 	public static void main(String[] args) {

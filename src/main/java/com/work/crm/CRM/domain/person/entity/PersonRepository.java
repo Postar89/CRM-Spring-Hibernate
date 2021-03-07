@@ -32,7 +32,17 @@ public class PersonRepository {
     }
 
     public List<Person> getAllWithNameAndSurname(String name, String surname) {
-        return em.createQuery("SELECT person from Person person", Person.class).getResultList();
+        String sql = "SELECT person from Person person WHERE person.name = '"+name+"' AND person.surname = '"+surname +"'";
+        return em.createQuery(sql, Person.class).getResultList();
+    }
+
+    public Person getPerson(String name, String surname, String idNumber, String docType, String docNumber) {
+        String sql = "SELECT person from Person person WHERE person.name = '"+name+
+                "' AND person.surname = '"+surname +
+                "' AND person.idNumber = '"+idNumber +
+                "' AND person.docType = '"+docType +
+                "' AND person.docNumber = '"+docNumber + "'";
+        return em.createQuery(sql, Person.class).getSingleResult();
     }
 
     @Transactional
